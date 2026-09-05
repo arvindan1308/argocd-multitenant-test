@@ -14,7 +14,7 @@ spec:
     metadata:
       name: '{{path.basename}}'
     spec:
-      project: default
+      project: workflow
       source:
         repoURL: https://github.com/arvindan1308/argocd-multitenant-test
         targetRevision: main
