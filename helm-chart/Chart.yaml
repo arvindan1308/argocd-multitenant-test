@@ -1,0 +1,5 @@
+apiVersion: v2
+name: demo-app
+description: Test chart for multi-tenant ArgoCD ApplicationSet demo
+version: 0.1.0
+appVersion: "1.0"
