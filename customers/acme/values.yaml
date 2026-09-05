@@ -1,2 +1,4 @@
+# customers/acme/values.yaml
+argoProject: default
 nameOverride: acme
 replicaCount: 2

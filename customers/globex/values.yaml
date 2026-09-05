@@ -1,1 +1,4 @@
+# customers/globex/values.yaml
+argoProject: workflow
 nameOverride: globex
+replicaCount: 3
