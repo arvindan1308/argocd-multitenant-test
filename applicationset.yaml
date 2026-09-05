@@ -4,6 +4,8 @@ metadata:
   name: customer-apps
   namespace: argocd
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
         repoURL: https://github.com/arvindan1308/argocd-multitenant-test
@@ -12,9 +14,9 @@ spec:
           - path: "customers/*/values.yaml"
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{.path.basename}}'
     spec:
-      project: workflow
+      project: '{{.argoProject}}'
       source:
         repoURL: https://github.com/arvindan1308/argocd-multitenant-test
         targetRevision: main
@@ -22,10 +24,10 @@ spec:
         helm:
           valueFiles:
             - values-common.yaml
-            - '../customers/{{path.basename}}/values.yaml'
+            - '../customers/{{.path.basename}}/values.yaml'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: '{{.path.basename}}'
       syncPolicy:
         automated:
           prune: true
