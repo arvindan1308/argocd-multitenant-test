@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
         - values-common.yaml
-        - ../customers/__CUSTOMER__/values.yaml
+        - ../apps/__CUSTOMER__/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: __CUSTOMER__

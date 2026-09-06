@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "customers/**/values.yaml"
+      - "apps/**/values.yaml"
 
 jobs:
   render:
@@ -17,17 +17,17 @@ jobs:
 
       - name: Render Application manifests
         run: |
-          mkdir -p apps
-          for f in customers/*/values.yaml; do
+          mkdir -p argocd-apps
+          for f in apps/*/values.yaml; do
             customer=$(basename "$(dirname "$f")")
             project=$(yq '.argoProject' "$f")
             sed -e "s/__CUSTOMER__/${customer}/g" -e "s/__PROJECT__/${project}/g" \
-              ci/app-template.yaml > "apps/${customer}-app.yaml"
+              ci/app-template.yaml > "argocd-apps/${customer}-app.yaml"
           done
       - name: Commit rendered manifests
         run: |
           git config user.name "ci-bot"
           git config user.email "ci-bot@yourorg.com"
-          git add apps/
+          git add argocd-apps/
           git diff --cached --quiet || git commit -m "Render customer Applications [ci skip]"
           git push
