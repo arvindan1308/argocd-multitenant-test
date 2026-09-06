@@ -1,0 +1,3 @@
+argoProject: default
+nameOverride: umbrella
+replicaCount: 2
