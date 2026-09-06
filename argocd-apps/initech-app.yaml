@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: initech
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/arvindan1308/argocd-multitenant-test
+    targetRevision: main
+    path: helm-chart
+    helm:
+      valueFiles:
+        - values-common.yaml
+        - ../apps/initech/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: initech
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
